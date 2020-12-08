@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <AutoCompleteTextView
+        android:id="@+id/user_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#F4F3F2"
+        android:hint="Write Code Here"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/run_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:padding="20dp"
+        android:text="Run Code"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:backgroundTint="@android:color/holo_green_light" />
+</LinearLayout>
