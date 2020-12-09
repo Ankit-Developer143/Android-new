@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:weightSum="4">
+        android:weightSum="5">
 
         <Button
             android:id="@+id/login_btn"
@@ -91,6 +91,13 @@
             android:layout_weight="1"
             android:onClick="Redirect_EmptyPage"
             android:text="Reset Email" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="data_btn"
+            android:text="Data" />
     </LinearLayout>
 
 </RelativeLayout>

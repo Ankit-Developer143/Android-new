@@ -99,6 +99,10 @@ class MainActivity : AppCompatActivity() {
     fun Redirect_EmptyPage(view: View) {
         startActivity(Intent(this@MainActivity,EmptyActivity::class.java))
     }
+
+    fun data_btn(view: View) {
+        startActivity(Intent(this@MainActivity,profile_activity::class.java))
+    }
 }
 
 

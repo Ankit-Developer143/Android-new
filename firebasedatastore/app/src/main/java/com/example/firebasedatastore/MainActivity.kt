@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.firebasedatastore
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,48 +12,46 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class profile_activity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
-    var user_firstName:EditText? = null
-    var user_lastName:EditText? = null
-    var userName:EditText?= null
+    var user_firstname:EditText? = null
+    var user_lastname:EditText? = null
+    var username:EditText? = null
     var update_btn:Button? = null
-    var firebaseauth:FirebaseAuth? = null
+    var firebaseAuth:FirebaseAuth? = null
     var firebaseDatabase:DatabaseReference? = null
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_activity)
+        setContentView(R.layout.activity_main)
 
-        user_firstName = findViewById(R.id.user_first_name)
-        user_lastName = findViewById(R.id.user_last_name)
-        userName = findViewById(R.id.user_username)
-        update_btn = findViewById(R.id.userinfo_btn)
+        user_firstname = findViewById(R.id.user_firstname)
+        user_lastname = findViewById(R.id.user_lastname)
+        username = findViewById(R.id.user_username)
+        update_btn = findViewById(R.id.update)
+        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(firebaseAuth?.currentUser!!.uid)
 
-
-        //user for access for current userid
-        firebaseauth = FirebaseAuth.getInstance()
-
-
-        //first create Users and then UserId
-        firebaseDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(firebaseauth?.currentUser!!.uid)
-
-        update_btn.setOnClickListener {
-            SaveUserInfo()
+        update_btn?.setOnClickListener {
+            saveData()
         }
+
     }
-    private fun SaveUserInfo(){
-        var  firstname = user_firstName?.text.toString()
-        var lastname=user_lastName?.text.toString()
-        var username=userName?.text.toString()
-        if (TextUtils.isEmpty(firstname)){
+
+    private fun saveData() {
+
+
+        var first_name = user_firstname?.text.toString().trim()
+        var last_name = user_lastname?.text.toString().trim()
+        var username = username?.text.toString().trim()
+
+
+
+        if (TextUtils.isEmpty(first_name)){
             Toast.makeText(applicationContext,"This field is Required..",Toast.LENGTH_SHORT).show()
         }
-        else if (TextUtils.isEmpty(lastname)){
+        else if (TextUtils.isEmpty(last_name)){
             Toast.makeText(applicationContext,"This field is Required..",Toast.LENGTH_SHORT).show()
 
         }
@@ -62,26 +60,27 @@ class profile_activity : AppCompatActivity() {
         }
         else{
             val userinfo = HashMap<String,Any>()
-            userinfo.put("firstName",firstname)
-            userinfo.put("lastName",lastname)
+            userinfo.put("firstName",first_name)
+            userinfo.put("lastName",last_name)
             userinfo.put("userName",username)
+
+            //push
             firebaseDatabase?.updateChildren(userinfo)?.addOnCompleteListener(object :OnCompleteListener<Void>{
                 override fun onComplete(task: Task<Void>) {
-
                     if (task.isSuccessful){
                         Toast.makeText(applicationContext,"Save Succefully....",Toast.LENGTH_SHORT).show()
+
                     }
                     else{
                         var error = task.exception?.message
-                        Toast.makeText(applicationContext,"Error:"+error,Toast.LENGTH_SHORT).show()
-
+                        Toast.makeText(applicationContext,"Error"+error,Toast.LENGTH_SHORT).show()
                     }
 
                 }
 
             })
-
         }
+
 
     }
 }

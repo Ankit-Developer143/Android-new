@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <tcking.github.com.giraffeplayer2.VideoView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/lession_video"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/lession_video"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/vdo_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/vdo_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/download_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Download"
+            app:backgroundTint="@android:color/holo_green_dark" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
