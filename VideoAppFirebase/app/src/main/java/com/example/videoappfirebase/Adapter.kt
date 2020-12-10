@@ -25,7 +25,7 @@ class  Adapter(data:ArrayList<Lession>,var context: Context):RecyclerView.Adapte
         val videoItem = data[position]
 
         holder.title.text = videoItem.title
-        holder.title.text = videoItem.desc
+        holder.desc.text = videoItem.desc
         holder.video.setVideoPath(videoItem.videoUrl)
 
     }
@@ -46,9 +46,9 @@ class  Adapter(data:ArrayList<Lession>,var context: Context):RecyclerView.Adapte
         var video:VideoView
 
         init {
-            title = item.findViewById(R.id.vdo_title)
-            desc = item.findViewById(R.id.vdo_desc)
-            video = item.findViewById(R.id.lession_video)
+            title = item.findViewById(R.id.video_title)
+            desc = item.findViewById(R.id.video_dec)
+            video = item.findViewById(R.id.video_view)
 
 
         }

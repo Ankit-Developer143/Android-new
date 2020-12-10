@@ -1,4 +1,4 @@
-package com.example.firebasedatastore
+package com.example.newfirebase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,15 +13,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
-
-    var user_firstName:EditText? = null
-    var user_lastName:EditText? = null
-    var userName:EditText? = null
-    var update_btn:Button? = null
+    var user_firstName: EditText? = null
+    var user_lastName: EditText? = null
+    var userName: EditText? = null
+    var update_btn: Button? = null
     var firebaseAuth:FirebaseAuth? = null
-    var firebaseDatabase:DatabaseReference? = null
-
-
+    var firebaseDatabase: DatabaseReference? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,15 +28,16 @@ class MainActivity : AppCompatActivity() {
         userName = findViewById(R.id.user_username)
         update_btn = findViewById(R.id.update)
         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(firebaseAuth?.currentUser!!.uid)
+        firebaseDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(
+                firebaseAuth?.currentUser?.uid.toString())
 
 
         update_btn?.setOnClickListener {
             saveUserInfo()
         }
 
-    }
 
+    }
     private fun saveUserInfo() {
 
 
@@ -50,14 +48,14 @@ class MainActivity : AppCompatActivity() {
 
 
         if (TextUtils.isEmpty(first_name)){
-            Toast.makeText(applicationContext,"This field is Required..",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"This field is Required..", Toast.LENGTH_SHORT).show()
         }
         else if (TextUtils.isEmpty(last_name)){
-            Toast.makeText(applicationContext,"This field is Required..",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"This field is Required..", Toast.LENGTH_SHORT).show()
 
         }
         else if (TextUtils.isEmpty(username)){
-            Toast.makeText(applicationContext,"This field is Required..",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext,"This field is Required..", Toast.LENGTH_SHORT).show()
         }
         else{
             val userinfo = HashMap<String,Any>()
@@ -66,13 +64,13 @@ class MainActivity : AppCompatActivity() {
             userinfo.put("userName",username)
 
             //push
-            firebaseDatabase?.updateChildren(userinfo)?.addOnCompleteListener(object :OnCompleteListener<Void>{
+            firebaseDatabase?.updateChildren(userinfo)?.addOnCompleteListener(object : OnCompleteListener<Void> {
                 override fun onComplete(task: Task<Void>) {
                     if(task.isSuccessful){
-                        Toast.makeText(applicationContext,"Succefully Update..",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext,"Succefully Update..", Toast.LENGTH_SHORT).show()
                     }else{
                         var error = task.exception?.message
-                        Toast.makeText(applicationContext,"Error.."+error,Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext,"Error.."+error, Toast.LENGTH_SHORT).show()
 
                     }
 
@@ -83,4 +81,5 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 }
